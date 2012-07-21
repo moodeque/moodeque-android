@@ -41,13 +41,15 @@ public class GetVenuesCommand extends JSONRestServerCommand {
     @Override
     public void processJSONResult(String result, Context context) throws JSONException {
         mDb = new DbHelper(context);     // I know this is not the healthiest practice. On the other hand, I am short of time
-        JSONArray jsonResponse = new JSONArray(result);
+        JSONObject jsonResponse = new JSONObject(result);
+        JSONArray venues = jsonResponse.getJSONArray("venues");
+
         mDb.open();
         mDb.removeAllPlace();
 
-       for (int i = 0; i < jsonResponse.length(); i++) {
-            JSONObject jo = jsonResponse.getJSONObject(i);
-            Long id = jo.getLong(DbHelper.PLACE_ROW_ID);
+       for (int i = 0; i < venues.length(); i++) {
+            JSONObject jo = venues.getJSONObject(i);
+            Long id = jo.getLong("id");
             String name = jo.getString(DbHelper.PLACE_NAME_KEY);
             String description = jo.getString(DbHelper.PLACE_DESCRIPTION_KEY);
 
@@ -63,7 +65,7 @@ public class GetVenuesCommand extends JSONRestServerCommand {
 
     @Override
     protected String getUrl(Action a) {
-        return Constants.SERVER_URL + "/venues/";
+        return Constants.SERVER_URL + "/venues";
     }
 
     @Override

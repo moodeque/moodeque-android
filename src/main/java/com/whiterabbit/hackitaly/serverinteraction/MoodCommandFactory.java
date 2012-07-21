@@ -15,7 +15,7 @@ public class MoodCommandFactory extends CommandFactory{
     @Override
     public ServerCommand createCommand(String simpleClassName) throws UnknownCommandException {
         if(simpleClassName.equals(GetVenuesCommand.class.getSimpleName())){
-            VenuesGetCommand c = new VenuesGetCommand();
+            GetVenuesCommand c = new GetVenuesCommand();
             return c;
         }
 

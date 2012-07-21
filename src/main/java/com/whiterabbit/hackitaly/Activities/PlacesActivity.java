@@ -51,7 +51,7 @@ public class PlacesActivity extends Activity implements ServerInteractionRespons
             // Reset the view (in case it was recycled) and prepare for binding
 
             TextView name = (TextView) view.findViewById(R.id.places_list_element_name);
-            TextView description = (TextView) view.findViewById(R.id.places_list_element_name);
+            TextView description = (TextView) view.findViewById(R.id.places_list_element_description);
 
             String plName = cursor.getString(DbHelper.PLACE_NAME_COLUMN);
             String plDescription = cursor.getString(DbHelper.PLACE_DESCRIPTION_COLUMN);

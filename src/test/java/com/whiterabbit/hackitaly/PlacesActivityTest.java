@@ -98,6 +98,14 @@ public class PlacesActivityTest {
 
 
 
+    @Test
+    public void testVenueParse(){
+        String fava = "\"{\"venues\": [{\"latitude\": null, \"description\": \"Description\", \"id\": 0, \"longitude\": null, \"name\": \"prova1\"}, {\"latitude\": null, \"description\": \"Description\", \"id\": 1, \"longitude\": null, \"name\": \"prova2\"}]}";
+
+
+
+    }
+
     
 
 
