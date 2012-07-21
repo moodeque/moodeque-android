@@ -20,7 +20,7 @@ public class LoginCommand extends JSONRestServerCommand {
 
 
     public LoginCommand(String username){
-        super(Action.UPDATE);
+        super(Action.CREATE);
         mUserId = username;
     }
 
