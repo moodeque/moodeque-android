@@ -7,4 +7,6 @@
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>
     <string name="login_go">Go</string>
+
+    <string name="places_name">Places available</string>
 </resources>

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.whiterabbit.hackitaly.R;
+import com.whiterabbit.hackitaly.Utils.PreferencesStore;
 import com.whiterabbit.hackitaly.serverinteraction.LoginCommand;
 import com.whiterabbit.hackitaly.serverinteraction.MoodCommandFactory;
 import com.whiterabbit.postman.SendingCommandException;
@@ -60,6 +61,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Ser
 
     @Override
     public void onClick(View view) {
+        PreferencesStore.setUserName(this, mUser.getText().toString());
         LoginCommand c = new LoginCommand(mUser.getText().toString());
 
         try {
