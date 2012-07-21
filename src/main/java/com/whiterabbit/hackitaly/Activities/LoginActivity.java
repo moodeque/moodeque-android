@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.whiterabbit.hackitaly.R;
+import com.whiterabbit.hackitaly.serverinteraction.LoginCommand;
 import com.whiterabbit.hackitaly.serverinteraction.MoodCommandFactory;
+import com.whiterabbit.postman.SendingCommandException;
 import com.whiterabbit.postman.ServerInteractionHelper;
 import com.whiterabbit.postman.ServerInteractionResponseInterface;
 
@@ -53,12 +55,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, Ser
 
     @Override
     public void onClick(View view) {
+        LoginCommand c = new LoginCommand();
+
+        try {
+            ServerInteractionHelper.getInstance().sendCommand(this, c, LOGIN_REQUEST);
+        } catch (SendingCommandException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
     }
 
 
     private void goToVenues(){
-        Intent i = new Intent(this, PlacesListActivity.class);
+        Intent i = new Intent(this, PlacesActivity.class);
         startActivity(i);
     }
 

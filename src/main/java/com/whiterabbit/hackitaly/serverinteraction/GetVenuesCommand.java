@@ -14,17 +14,17 @@ import org.json.JSONException;
  * Time: 10:23 AM
  * Command to log into the server
  */
-public class LoginCommand extends JSONRestServerCommand {
+public class GetVenuesCommand extends JSONRestServerCommand {
     private final String USERNAME = "username";
     private String mUserId;
 
 
-    public LoginCommand(String username){
-        super(Action.UPDATE);
+    public GetVenuesCommand(String username){
+        super(Action.GET);
         mUserId = username;
     }
 
-    public LoginCommand(){
+    public GetVenuesCommand(){
         super();
     }
 
@@ -35,12 +35,12 @@ public class LoginCommand extends JSONRestServerCommand {
 
     @Override
     public void processJSONResult(String result, Context context) throws JSONException {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // TODO
     }
 
     @Override
     protected String getUrl(Action a) {
-        return Constants.SERVER_URL + "/people/" + mUserId + "/login";
+        return Constants.SERVER_URL + "/venues/";
     }
 
     @Override

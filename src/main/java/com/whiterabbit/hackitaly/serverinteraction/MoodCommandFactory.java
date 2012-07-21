@@ -14,8 +14,13 @@ import com.whiterabbit.postman.commands.UnknownCommandException;
 public class MoodCommandFactory extends CommandFactory{
     @Override
     public ServerCommand createCommand(String simpleClassName) throws UnknownCommandException {
-        if(simpleClassName.equals(VenuesGetCommand.class.getSimpleName())){
+        if(simpleClassName.equals(GetVenuesCommand.class.getSimpleName())){
             VenuesGetCommand c = new VenuesGetCommand();
+            return c;
+        }
+
+        if(simpleClassName.equals(LoginCommand.class.getSimpleName())){
+            LoginCommand c = new LoginCommand();
             return c;
         }
         throw new UnknownCommandException();
