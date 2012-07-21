@@ -8,5 +8,9 @@
     <string name="login_password">Password</string>
     <string name="login_go">Go</string>
 
-    <string name="places_name">Places available</string>
+    <string name="invenue_mood">Mood</string>
+    <string name="invenue_playlist">Playlist</string>
+
+    <string name="mood_now_playing">Now playing</string>
+    <string name="places_name">Available places</string>
 </resources>

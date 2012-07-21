@@ -15,8 +15,7 @@
     </activity>
 
     <activity android:name=".Activities.PlacesActivity"/>
-
-
+    <activity android:name=".Activities.InVenueActivity"/>
 
 
       <service
