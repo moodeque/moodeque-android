@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="moodtequeView">
+	<item name="android:background">@color/light_grey</item>
+    <item name="android:textColor">@color/dark_grey</item>
+  </style>
+
+  <style name="LoginEditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dip</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+  </style>
+    <style name="LoginButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dip</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/dark_grey</item>
+
+    </style>
+
+
+  <style name="MainSeparator">
+  		<item name="android:paddingTop">5dip</item>
+  		<item name="android:paddingBottom">5dip</item>
+  		<item name="android:layout_marginLeft">8dip</item>
+  		<item name="android:layout_marginRight">8dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">2dip</item>
+		<item name="android:background">#FF909090</item>
+  </style> 	
+  <style name="MainPageDescription">
+  		<item name="android:paddingTop">10dip</item>
+  		<item name="android:paddingBottom">5dip</item>
+  		<item name="android:paddingLeft">5dip</item>
+  		<item name="android:paddingRight">5dip</item>
+  		<item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+  </style>
+  <style name="MainPageBigButton">
+  		<item name="android:paddingTop">2dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@null</item>
+		
+  </style>
+  <style name="MainPageGoListButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/dark_grey</item>
+  </style> 	 	  
+  
+  <style name="ChooseButtonBar">
+  		<item name="android:background">@null</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">20dip</item>
+        
+  </style>
+  <style name="ChooseBrandText">
+  		<item name="android:textSize">@dimen/text_size_not_so_large</item>
+  		<item name="android:textStyle">bold</item>
+  		<item name="android:textColor">@color/dark_grey</item>
+  		<!--item name="android:background">@color/dark_yellow</item-->
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">15dip</item>
+        <item name="android:paddingRight">10dip</item>
+  </style>
+  <style name="ChooseBrandButton">
+  		<item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        
+  </style>
+  <!--  PASTA LIST ELEM  --> 	 	
+  <style name="PastaElemText">
+  		
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+  </style>
+  
+     	 	  
+  <style name="PastaElemStyle">
+	 	<item name="android:layout_width">fill_parent</item>
+	   	<item name="android:layout_height">fill_parent</item>
+     	<item name="android:weightSum">1</item>
+  		<item name="android:padding">10dip</item>
+  </style> 	 	   	 	  
+  <style name="PastaElemImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+  </style>
+  <style name="BrandElemStyle">
+        <item name="android:background">@color/light_grey1</item>
+        <item name="android:padding">10dip</item>
+        <item name="android:textColor">@color/white</item>
+  </style> 	 	   	 	  
+  <style name="BrandList">
+  	<item name="android:layout_width">fill_parent</item>
+  	<item name="android:layout_height">wrap_content</item>
+    <item name="android:paddingLeft">5dip</item>
+    <item name="android:paddingRight">5dip</item>
+  </style>
+      	
+  
+  
+  <!--add_new_layout -->
+  <style name="AddNewEditText">
+  		<item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">text</item>
+  		<item name="android:singleLine">true</item>
+  </style> 	
+  <style name="AddNewEditText.AddNewBrandStyle">
+  		<item name="android:imeOptions">actionNext</item>
+  </style> 	
+  <style name="AddNewEditText.Kind">
+  		<item name="android:imeOptions">actionDone</item>
+  </style> 	
+  <style name="AddNewPadded">
+  		<item name="android:layout_width">fill_parent</item>
+  		<item name="android:layout_height">wrap_content</item>
+  		<item name="android:paddingLeft">15dip</item>
+  		<item name="android:paddingRight">15dip</item>
+  		<item name="android:paddingTop">15dip</item>
+  		<item name="android:paddingBottom">15dip</item>
+  </style> 	
+  <style name="AddNewPadded.MorePaddingTop">
+  		<item name="android:paddingTop">30dip</item>
+  </style>
+  
+  <style name="AddNewPadded.BoilingTitle">
+  		<item name="android:textColor">@color/dark_grey</item>
+  		<item name="android:textSize">@dimen/text_size_medium</item>
+  		<item name="android:textStyle">bold</item>
+  		<item name="android:paddingLeft">25dip</item>
+  </style> 	
+  
+  <style name="AddNewSlider">
+  	<item name="android:paddingRight">15dip</item>
+  	<item name="android:layout_weight">1</item>
+  	<item name="android:layout_width">wrap_content</item>
+	<item name="android:layout_height">wrap_content</item>
+  </style> 	
+  
+  <style name="AddNewBoilingEdit">
+  	<item name="android:ems">2</item>
+  	<item name="android:layout_width">wrap_content</item>
+	<item name="android:layout_height">wrap_content</item>
+  </style> 	
+  
+  <style name="AddNewAddButton">
+  	<item name="android:layout_gravity">center</item>
+  	<item name="android:layout_width">wrap_content</item>
+	<item name="android:layout_height">wrap_content</item>
+  </style> 
+
+   <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
+   		<item name="android:background">@null</item>
+   		<item name="android:textColor">@color/white</item>
+   </style>   
+   
+   <!-- Timer Layout -->
+    <style name="WCFP.TimerDescriptionContainer">
+	   	<item name="android:weightSum">1</item>
+	   	<item name="android:layout_width">fill_parent</item>
+	   	<item name="android:layout_height">wrap_content</item>
+	   	<item name="android:layout_gravity">center</item>
+   </style>
+   
+   <style name="WCFP.TimerDescriptionContainer.Land">
+       <item name="android:layout_width">wrap_content</item>
+   </style>     
+        
+    <style name="WCFP"><!--  width fill parent height wrap content -->
+    	<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+	
+	<style name="WCFP.ProductDescription">
+	   	<item name="android:background">@null</item>
+	   	<item name="android:gravity">center</item>
+	   	<item name="android:weightSum">1</item>
+	   	<item name="android:padding">10dip</item>
+	   	<item name="android:textSize">@dimen/text_size_not_so_large</item>
+	   	<item name="android:textColor">@color/dark_grey</item>
+   </style>
+   <style name="WCFP.ProductDescription.Small">
+		<item name="android:padding">5dip</item>
+   </style>
+   <style name="ProductDescriptionSeparatorH">
+  		<item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dip</item>
+		<item name="android:background">#FF909090</item>
+		
+  </style>
+  <style name="ProductDescriptionSeparatorV">
+  		<item name="android:layout_width">1dip</item>
+        <item name="android:layout_height">fill_parent</item>
+		<item name="android:background">#FF909090</item>
+  </style>
+  
+  <style name="TimeWrapperDescription">
+  		<item name="android:background">@null</item>
+  		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:gravity">center</item>
+  		<item name="android:paddingLeft">10dip</item>
+   </style>
+   
+    <style name="TimerTime">
+    	<item name="android:layout_width">wrap_content</item>
+    	<item name="android:layout_height">wrap_content</item>
+		<item name="android:textSize">@dimen/text_size_xxlarge</item>
+		<item name="android:textColor">@color/dark_grey</item>
+	</style>
+	<style name="TimerTimeContainer">
+    	<item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+		<item name="android:textSize">@dimen/text_size_xxlarge</item>
+		<item name="android:paddingTop">10dip</item>
+		<item name="android:paddingBottom">10dip</item>
+		<item name="android:gravity">center</item>
+	</style>
+	<style name="TimerTimeContainer.Small">
+	    <item name="android:paddingTop">2dip</item>
+		<item name="android:paddingBottom">2dip</item>
+	</style>	    
+	    
+	<style name="TimerTimeContainer.Land">
+	    <item name="android:layout_width">wrap_content</item>
+	</style>
+</resources>

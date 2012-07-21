@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.Utils.PreferencesStore;
@@ -87,6 +88,6 @@ public class LoginActivity extends SherlockActivity implements View.OnClickListe
 
     @Override
     public void onServerError(String result, String requestId) {
-//  TODO Mostrare toast
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
     }
 }

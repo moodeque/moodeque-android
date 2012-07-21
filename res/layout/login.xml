@@ -3,23 +3,27 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    style="@style/moodtequeView"
     >
 
 <EditText
+    android:layout_marginTop="20dip"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:hint="@string/login_username"
     android:id="@+id/login_name_text"
-/>
+    style="@style/LoginEditText"/>
 <EditText
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:hint="@string/login_password"
+    style="@style/LoginEditText"
 />
 <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_go"
         android:id="@+id/login_go_button"
-        />
+        style="@style/LoginButton"/>
 </LinearLayout>

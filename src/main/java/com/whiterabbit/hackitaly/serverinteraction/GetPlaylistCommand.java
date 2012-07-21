@@ -67,7 +67,7 @@ public class GetPlaylistCommand extends JSONRestServerCommand {
 
     @Override
     protected String getUrl(Action a) {
-        return Constants.SERVER_URL + "/venues/" + mVenue + "playlist";
+        return Constants.SERVER_URL + "/venues/" + mVenue + "/playlist";
     }
 
     @Override

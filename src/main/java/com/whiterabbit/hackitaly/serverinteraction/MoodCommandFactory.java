@@ -23,6 +23,17 @@ public class MoodCommandFactory extends CommandFactory{
             LoginCommand c = new LoginCommand();
             return c;
         }
+
+        if(simpleClassName.equals(GetPlaylistCommand.class.getSimpleName())){
+            GetPlaylistCommand c = new GetPlaylistCommand();
+            return c;
+        }
+
+
+        if(simpleClassName.equals(SetMoodCommand.class.getSimpleName())){
+            SetMoodCommand c = new SetMoodCommand();
+            return c;
+        }
         throw new UnknownCommandException();
 }
 }

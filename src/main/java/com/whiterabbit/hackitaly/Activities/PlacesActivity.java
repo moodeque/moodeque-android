@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.Storage.DbHelper;
@@ -92,6 +95,23 @@ public class PlacesActivity extends SherlockActivity implements ServerInteractio
         mListView.setOnItemClickListener(this);
         setSupportProgressBarIndeterminateVisibility(false);
 
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+         menu.add("Refresh")
+                .setIcon(R.drawable.ic_refresh_inverse)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        updateList();
+        return true;
     }
 
     public ServerInteractionHelper getInteractionHelper(){
@@ -130,7 +150,7 @@ public class PlacesActivity extends SherlockActivity implements ServerInteractio
 
     private void updateList(){
         if(getInteractionHelper().isRequestAlreadyPending(GET_VENUES) == false){
-            reload();
+            getVenues();
         }
     }
 
@@ -149,6 +169,7 @@ public class PlacesActivity extends SherlockActivity implements ServerInteractio
         GetVenuesCommand c = new GetVenuesCommand(PreferencesStore.getUsername(this));
         try {
             getInteractionHelper().sendCommand(this, c, GET_VENUES);
+            showGettingVenues();
         } catch (SendingCommandException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -171,8 +192,7 @@ public class PlacesActivity extends SherlockActivity implements ServerInteractio
     @Override
     public void onServerError(String result, String requestId) {
         setSupportProgressBarIndeterminateVisibility(false);
-        // TODO Mostrare toast
-
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
     }
 
     @Override

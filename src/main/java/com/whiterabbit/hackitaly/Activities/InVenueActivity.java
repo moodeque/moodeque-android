@@ -32,7 +32,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.Utils.PreferencesStore;
@@ -97,6 +100,22 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
         outState.putString("tab", mTabHost.getCurrentTabTag());
     }
 
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Refresh")
+                .setIcon(R.drawable.ic_refresh_inverse)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        requestPlaylist();
+        return true;
+    }
 
 
     /**
@@ -224,15 +243,19 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
     public void onResume(){
         super.onResume();
         ServerInteractionHelper.getInstance().registerEventListener(this, this);
+        requestPlaylist();
+    }
 
+
+
+    private void requestPlaylist(){
         if(!ServerInteractionHelper.getInstance().isRequestAlreadyPending(GET_PLAYLIST)){
             sendGetPlayList();
+            setSupportProgressBarIndeterminateVisibility(true);
         }else{
             setSupportProgressBarIndeterminateVisibility(true);
         }
-
     }
-
 
     private void sendGetPlayList(){
         GetPlaylistCommand c = new GetPlaylistCommand(mVenueId);
@@ -266,6 +289,7 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
     @Override
     public void onServerError(String result, String requestId) {
         setSupportProgressBarIndeterminateVisibility(false);
+        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 
     }
 
