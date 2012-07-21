@@ -1,10 +1,12 @@
 package com.whiterabbit.hackitaly.Activities;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.serverinteraction.LoginCommand;
 import com.whiterabbit.hackitaly.serverinteraction.MoodCommandFactory;
@@ -12,22 +14,25 @@ import com.whiterabbit.postman.SendingCommandException;
 import com.whiterabbit.postman.ServerInteractionHelper;
 import com.whiterabbit.postman.ServerInteractionResponseInterface;
 
-
 public class LoginActivity extends Activity implements View.OnClickListener, ServerInteractionResponseInterface {
 
     private static final String LOGIN_REQUEST = "LoginRequest";
 
 
-
+    EditText mUser;
     Button mGo;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ServerInteractionHelper.initWithCommandFactory(new MoodCommandFactory());
         setContentView(R.layout.login);
-        mGo = (Button) findViewById(R.id.long_go_button);
+        mGo = (Button) findViewById(R.id.login_go_button);
         mGo.setOnClickListener(this);
+
+        mUser = (EditText) findViewById(R.id.login_name_text);
     }
 
 
@@ -55,7 +60,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, Ser
 
     @Override
     public void onClick(View view) {
-        LoginCommand c = new LoginCommand();
+        LoginCommand c = new LoginCommand(mUser.getText().toString());
 
         try {
             ServerInteractionHelper.getInstance().sendCommand(this, c, LOGIN_REQUEST);

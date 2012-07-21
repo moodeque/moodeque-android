@@ -9,6 +9,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:hint="@string/login_username"
+    android:id="@+id/login_name_text"
 />
 <EditText
     android:layout_width="fill_parent"
@@ -19,6 +20,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_go"
-        android:id="@+id/long_go_button"
+        android:id="@+id/login_go_button"
         />
 </LinearLayout>

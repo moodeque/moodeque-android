@@ -41,6 +41,14 @@
   	  <version>1.9.0</version>
   	  <scope>test</scope>
 	</dependency>
+
+    <dependency>
+        <groupId>android.support</groupId>
+        <artifactId>compatibility-v4</artifactId>
+        <version>r8</version>
+    </dependency>
+
+
    </dependencies>
 
     <repositories>

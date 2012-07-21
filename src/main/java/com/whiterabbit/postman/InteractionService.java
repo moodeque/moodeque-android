@@ -5,11 +5,12 @@ package com.whiterabbit.postman;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
-import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.postman.commands.CommandFactory;
 import com.whiterabbit.postman.commands.ServerCommand;
 import com.whiterabbit.postman.commands.UnknownCommandException;
 import com.whiterabbit.postman.utils.Constants;
+import com.whiterabbit.hackitaly.R;
+
 
 /**
  * Intent service used to interact with rest
