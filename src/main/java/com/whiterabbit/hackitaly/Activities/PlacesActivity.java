@@ -1,7 +1,7 @@
 package com.whiterabbit.hackitaly.Activities;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.CursorAdapter;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Window;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.Storage.DbHelper;
 import com.whiterabbit.hackitaly.Utils.PreferencesStore;
@@ -20,7 +22,7 @@ import com.whiterabbit.postman.ServerInteractionHelper;
 import com.whiterabbit.postman.ServerInteractionResponseInterface;
 
 
-public class PlacesActivity extends Activity implements ServerInteractionResponseInterface, AdapterView.OnItemClickListener {
+public class PlacesActivity extends SherlockActivity implements ServerInteractionResponseInterface, AdapterView.OnItemClickListener {
 
 
 
@@ -81,11 +83,15 @@ public class PlacesActivity extends Activity implements ServerInteractionRespons
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.places_activity);
         mDb = new DbHelper(this);
         mListView = (ListView) findViewById(R.id.places_list);
         mListView.setOnItemClickListener(this);
+        setSupportProgressBarIndeterminateVisibility(false);
+
     }
 
     public ServerInteractionHelper getInteractionHelper(){
@@ -102,18 +108,21 @@ public class PlacesActivity extends Activity implements ServerInteractionRespons
             showGettingVenues();
         } else {
             getVenues();
+            showGettingVenues();
         }
 
     }
 
     private void showGettingVenues(){
-        // TODO
+        setSupportProgressBarIndeterminateVisibility(true);
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
+        getInteractionHelper().unregisterEventListener(this, this);
+
         mDb.close();
     }
 
@@ -148,6 +157,8 @@ public class PlacesActivity extends Activity implements ServerInteractionRespons
 
     @Override
     public void onServerResult(String result, String requestId) {
+        setSupportProgressBarIndeterminateVisibility(false);
+
         if(requestId.equals(GET_VENUES)){
             reload();
         }
@@ -159,12 +170,20 @@ public class PlacesActivity extends Activity implements ServerInteractionRespons
 
     @Override
     public void onServerError(String result, String requestId) {
+        setSupportProgressBarIndeterminateVisibility(false);
         // TODO Mostrare toast
 
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-     // TODO Pick item
+        Cursor c = mDb.getPlace(l);
+
+        int venueId = c.getInt(DbHelper.PLACE_IDENTIFIER_COLUMN);
+
+        Intent intent = new Intent(this, InVenueActivity.class);
+
+        intent.putExtra(InVenueActivity.VENUE, venueId);
+        startActivity(intent);
     }
 }

@@ -1,12 +1,12 @@
 package com.whiterabbit.hackitaly.Activities;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.Utils.PreferencesStore;
 import com.whiterabbit.hackitaly.serverinteraction.LoginCommand;
@@ -15,7 +15,7 @@ import com.whiterabbit.postman.SendingCommandException;
 import com.whiterabbit.postman.ServerInteractionHelper;
 import com.whiterabbit.postman.ServerInteractionResponseInterface;
 
-public class LoginActivity extends Activity implements View.OnClickListener, ServerInteractionResponseInterface {
+public class LoginActivity extends SherlockActivity implements View.OnClickListener, ServerInteractionResponseInterface {
 
     private static final String LOGIN_REQUEST = "LoginRequest";
 

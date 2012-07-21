@@ -33,7 +33,12 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Window;
 import com.whiterabbit.hackitaly.R;
+import com.whiterabbit.hackitaly.Utils.PreferencesStore;
+import com.whiterabbit.hackitaly.serverinteraction.GetPlaylistCommand;
+import com.whiterabbit.hackitaly.serverinteraction.SetMoodCommand;
+import com.whiterabbit.postman.SendingCommandException;
 import com.whiterabbit.postman.ServerInteractionHelper;
 import com.whiterabbit.postman.ServerInteractionResponseInterface;
 
@@ -50,8 +55,8 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
     TabsAdapter mTabsAdapter;
 
     public final String SEND_MOOD = "SendMood";
-    public final String GET_CURRENT_PLAYING = "CurrentPlaying";
     public final String GET_PLAYLIST = "Playlist";
+    public static final String VENUE = "Venue";
 
 
     private String mVenueName;
@@ -59,7 +64,12 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
         super.onCreate(savedInstanceState);
+
+        mVenueId = getIntent().getIntExtra(VENUE, -1);
+        setSupportProgressBarIndeterminateVisibility(false);
 
         setContentView(R.layout.in_venue_activity_pager);
         mTabHost = (TabHost)findViewById(android.R.id.tabhost);
@@ -197,48 +207,69 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
 
 
     public void setMood(int mood){
-        // TODO Send message
+        if(!ServerInteractionHelper.getInstance().isRequestAlreadyPending(SEND_MOOD)){
+                SetMoodCommand c = new SetMoodCommand(PreferencesStore.getUsername(this), mood);
+            try {
+                ServerInteractionHelper.getInstance().sendCommand(this, c, SEND_MOOD);
+            } catch (SendingCommandException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+
+        }
+
 
     }
 
     @Override
     public void onResume(){
+        super.onResume();
         ServerInteractionHelper.getInstance().registerEventListener(this, this);
-        if(!ServerInteractionHelper.getInstance().isRequestAlreadyPending(GET_CURRENT_PLAYING)){
-            // TODO Send request
 
-
-        }
         if(!ServerInteractionHelper.getInstance().isRequestAlreadyPending(GET_PLAYLIST)){
-            // TODO Send request
+            sendGetPlayList();
+        }else{
+            setSupportProgressBarIndeterminateVisibility(true);
         }
 
+    }
+
+
+    private void sendGetPlayList(){
+        GetPlaylistCommand c = new GetPlaylistCommand(mVenueId);
+        try {
+            ServerInteractionHelper.getInstance().sendCommand(this, c, GET_PLAYLIST);
+            setSupportProgressBarIndeterminateVisibility(true);
+        } catch (SendingCommandException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
 
 
     @Override
     protected void onPause() {
-        ServerInteractionHelper.getInstance().unregisterEventListener(this, this);
         super.onPause();
+
+        ServerInteractionHelper.getInstance().unregisterEventListener(this, this);
     }
 
 
     @Override
     public void onServerResult(String result, String requestId) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        if(requestId.equals(GET_PLAYLIST)){
+            getMoodFragment().changeCurrentSong(PreferencesStore.getCurrentlyPlaying(this));
+            getPlaylistFragment().updatePlaylist();
+            setSupportProgressBarIndeterminateVisibility(false);
+        }
     }
 
     @Override
     public void onServerError(String result, String requestId) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        setSupportProgressBarIndeterminateVisibility(false);
+
     }
 
 
-
-    public void updatePlaylist(){
-        getPlaylistFragment().updatePlaylist();
-    }
 
 
     MoodFragment getMoodFragment(){

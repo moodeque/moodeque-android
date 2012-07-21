@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello hackitaly!</string>
-    <string name="app_name">hackitaly</string>
+    <string name="app_name">Moodteque</string>
     <string name="unable_to_convert">Unable to convert</string>
 
     <string name="login_username">Username</string>

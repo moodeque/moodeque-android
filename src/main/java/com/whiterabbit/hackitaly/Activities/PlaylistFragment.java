@@ -104,7 +104,7 @@ public class PlaylistFragment extends SherlockListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.inmood_view, container, false);
+        View v = inflater.inflate(R.layout.playlist_view, container, false);
         return v;
     }
 
