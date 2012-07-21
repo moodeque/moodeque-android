@@ -1,6 +1,6 @@
 package com.whiterabbit.hackitaly.Activities;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.whiterabbit.hackitaly.R;
@@ -19,12 +20,15 @@ import com.whiterabbit.postman.ServerInteractionHelper;
 import com.whiterabbit.postman.ServerInteractionResponseInterface;
 
 
-public class PlacesActivity extends ListActivity implements ServerInteractionResponseInterface {
+public class PlacesActivity extends Activity implements ServerInteractionResponseInterface, AdapterView.OnItemClickListener {
+
+
 
     class PlacesListAdapter extends CursorAdapter {
 
         Context mContext;
         private LayoutInflater mInflater;
+
 
         public PlacesListAdapter(Context context, Cursor c) {
             super(context, c, true);
@@ -67,25 +71,34 @@ public class PlacesActivity extends ListActivity implements ServerInteractionRes
     }
 
 
-    private static final String GET_VENUES = "GetVenues";
+    public static final String GET_VENUES = "GetVenues";
     private static final String LOG_TO_VENUE = "LogToVenue";
     DbHelper mDb;
     PlacesListAdapter mAdapter;
+    ListView mListView;
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.places_activity);
         mDb = new DbHelper(this);
+        mListView = (ListView) findViewById(R.id.places_list);
+        mListView.setOnItemClickListener(this);
+    }
+
+    public ServerInteractionHelper getInteractionHelper(){
+        return ServerInteractionHelper.getInstance();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        ServerInteractionHelper.getInstance().registerEventListener(this, this);
+        mDb.open();
+        getInteractionHelper().registerEventListener(this, this);
 
-        if(ServerInteractionHelper.getInstance().isRequestAlreadyPending(GET_VENUES)){
+        if(getInteractionHelper().isRequestAlreadyPending(GET_VENUES)){
             showGettingVenues();
         } else {
             getVenues();
@@ -101,10 +114,13 @@ public class PlacesActivity extends ListActivity implements ServerInteractionRes
     @Override
     protected void onPause() {
         super.onPause();
+        mDb.close();
     }
 
+
+
     private void updateList(){
-        if(ServerInteractionHelper.getInstance().isRequestAlreadyPending(GET_VENUES) == false){
+        if(getInteractionHelper().isRequestAlreadyPending(GET_VENUES) == false){
             reload();
         }
     }
@@ -112,12 +128,10 @@ public class PlacesActivity extends ListActivity implements ServerInteractionRes
 
 
     public void reload(){
-        String[] columns = new String[] { DbHelper.PLACE_NAME_KEY, DbHelper.PLACE_DESCRIPTION_KEY};
-        int[] to = new int[] { R.id.places_list_element_name};
         Cursor c  = mDb.getAllPlace();
         c.moveToFirst();
         mAdapter = new PlacesListAdapter(this, c);
-        setListAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
         mAdapter.changeCursor(c);
     }
 
@@ -125,7 +139,7 @@ public class PlacesActivity extends ListActivity implements ServerInteractionRes
     private void getVenues(){
         GetVenuesCommand c = new GetVenuesCommand(PreferencesStore.getUsername(this));
         try {
-            ServerInteractionHelper.getInstance().sendCommand(this, c, GET_VENUES);
+            getInteractionHelper().sendCommand(this, c, GET_VENUES);
         } catch (SendingCommandException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -135,9 +149,12 @@ public class PlacesActivity extends ListActivity implements ServerInteractionRes
     @Override
     public void onServerResult(String result, String requestId) {
         if(requestId.equals(GET_VENUES)){
-            // TODO Aggiornare
+            reload();
         }
-        //To change body of implemented methods use File | Settings | File Templates.
+
+        if(requestId.equals(LOG_TO_VENUE)){
+
+        }
     }
 
     @Override
@@ -147,9 +164,7 @@ public class PlacesActivity extends ListActivity implements ServerInteractionRes
     }
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        // TODO Pick item
-
-
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+     // TODO Pick item
     }
 }

@@ -1,20 +1,23 @@
 package com.whiterabbit.hackitaly;
 
-import android.content.Intent;
-import android.view.View;
+import android.content.Context;
 import android.widget.ListView;
-import android.widget.TextView;
 import com.whiterabbit.hackitaly.Activities.PlacesActivity;
+import com.whiterabbit.hackitaly.Storage.DbHelper;
+import com.whiterabbit.postman.SendingCommandException;
+import com.whiterabbit.postman.ServerInteractionHelper;
+import com.whiterabbit.postman.commands.ServerCommand;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
-import com.xtremelabs.robolectric.shadows.ShadowActivity;
-import com.xtremelabs.robolectric.shadows.ShadowIntent;
 import com.xtremelabs.robolectric.shadows.ShadowListView;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.xtremelabs.robolectric.Robolectric.shadowOf;
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class PlacesActivityTest {
@@ -22,54 +25,79 @@ public class PlacesActivityTest {
 	PlacesActivity activity;
 	
     ShadowListView s;
+    ServerInteractionHelper mockServer;
+    DbHelper dbHelper;
 
 
 
 	 @Before
 	 public void setUp() throws Exception {
-         activity = new PlacesActivity();
+         mockServer =  mock(ServerInteractionHelper.class);
+         activity = new PlacesActivity(){
+            @Override
+             public ServerInteractionHelper getInteractionHelper(){
+                return mockServer;
+            }};
+
+         dbHelper = new DbHelper(activity);
 
 
-         ListView decks = (ListView) activity.findViewById(R.id.deck_list_list);
-         s = shadowOf(decks);
+         activity.onCreate(null);
+
+         ListView places = (ListView) activity.findViewById(R.id.places_list);
+         s = shadowOf(places);
 
 
 	 }
 
 
-	 
+
+    private void fillDb(){
+        dbHelper.open();
+        dbHelper.removeAllPlace();
+        dbHelper.addPlace(Long.valueOf(23), "Fava", "Rava", Long.valueOf(0), Long.valueOf(0));
+        dbHelper.addPlace(Long.valueOf(24), "Fava1", "Rava1", Long.valueOf(0), Long.valueOf(0));
+        dbHelper.addPlace(Long.valueOf(25), "Fava2", "Rava2", Long.valueOf(0), Long.valueOf(0));
+        dbHelper.close();
+    }
+
 	 @Test
 	 public void testLoad(){
+         when(mockServer.isRequestAlreadyPending(anyString())).thenReturn(false);
 
 
-        int childs = s.getCount();
+         activity.onResume();
+
+         try {
+             verify(mockServer).sendCommand(any(Context.class), any(ServerCommand.class), eq(PlacesActivity.GET_VENUES));
+         } catch (SendingCommandException e) {
+             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+         }
+
+         fillDb();
+
+         activity.onServerResult(null, PlacesActivity.GET_VENUES);
+
+         int childs = s.getCount();
+         assertEquals(childs, 3);
+
+
+         /*int childs = s.getCount();
 
 
 
-	    assertEquals(childs, 3);
-        View first = (View) s.getChildAt(0);
+         assertEquals(childs, 3);
+         View first = (View) s.getChildAt(0);
 
-        TextView name = (TextView) first.findViewById(R.id.deck_list_deckname);
-        assertEquals("Robots", name.getText());
 
          View second = (View) s.getChildAt(1);
 
-         name = (TextView) second.findViewById(R.id.deck_list_deckname);
          assertEquals("Robots", name.getText());
-
+         */
    	}
 
 
-    @Test
-    public void testLaunch(){
-        s.performItemClick(0);
-        ShadowActivity sa = shadowOf(activity);
-        Intent i = sa.getNextStartedActivity();
-        ShadowIntent si = shadowOf(i);
 
-        assertEquals(si.getComponent().getClassName(),DeckShowcaseActivity.class.getName());
-
-    }
     
 
 
