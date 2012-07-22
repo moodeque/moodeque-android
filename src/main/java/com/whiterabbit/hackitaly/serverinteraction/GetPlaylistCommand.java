@@ -57,7 +57,7 @@ public class GetPlaylistCommand extends JSONRestServerCommand {
 
             mDb.addSong(id, name, artist);
 
-            if(i == last){
+            if(i == 0){
                 PreferencesStore.setCurrentlyPlaying(context, name);
             }
         }
