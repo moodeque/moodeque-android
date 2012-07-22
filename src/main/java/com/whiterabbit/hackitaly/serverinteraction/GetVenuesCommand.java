@@ -83,4 +83,22 @@ public class GetVenuesCommand extends JSONRestServerCommand {
     protected void fromIntent(Intent i) {
         mUserId = i.getStringExtra(USERNAME);
     }
+
+    @Override
+    public boolean fakeExecute(Context c){
+        if(Constants.TESTING){
+            mDb = new DbHelper(c);     // I know this is not the healthiest practice. On the other hand, I am short of time
+
+            mDb.open();
+            mDb.removeAllPlace();
+
+            mDb.addPlace(Long.valueOf(0), "Hackitaly", "Siamo qua", Long.valueOf(0), Long.valueOf(0));
+            mDb.addPlace(Long.valueOf(0), "Pisa", "Speriamo di tornacci", Long.valueOf(0), Long.valueOf(0));
+            mDb.addPlace(Long.valueOf(0), "Empoli", "Tanta brutta gente", Long.valueOf(0), Long.valueOf(0));
+            mDb.close();
+
+            return true;
+        }
+        return false;
+    }
 }

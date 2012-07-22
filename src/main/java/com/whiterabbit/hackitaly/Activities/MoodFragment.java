@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
@@ -21,6 +22,7 @@ public class MoodFragment extends SherlockFragment implements SeekBar.OnSeekBarC
     int mNum;
     SeekBar mSeekbar;
     TextView mNowPlaying;
+    ImageView mImage;
     int mInitialValue;
     int mFinalValue;
     /**
@@ -56,18 +58,27 @@ public class MoodFragment extends SherlockFragment implements SeekBar.OnSeekBarC
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.inmood_view, container, false);
 
-        mSeekbar = (SeekBar) v.findViewById(R.id.mood_seekbar);
-        mNowPlaying = (TextView) v.findViewById(R.id.mood_now_playing);
-
-        mSeekbar.setMax(5);
-        mSeekbar.setOnSeekBarChangeListener(this);
-        mSeekbar.setProgress(1);
 
         return v;
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mSeekbar = (SeekBar) getView().findViewById(R.id.mood_seekbar);
+        mNowPlaying = (TextView) getView().findViewById(R.id.mood_now_playing_song);
+        mImage = (ImageView) getView().findViewById(R.id.mood_image);
+        mSeekbar.setMax(9);
+        mSeekbar.setOnSeekBarChangeListener(this);
+        mSeekbar.setProgress(1);
+
+        ((InVenueActivity)getActivity()).setMoodFragment(this);
+
+    }
+
+    @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        setImageByMood(i);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -79,10 +90,34 @@ public class MoodFragment extends SherlockFragment implements SeekBar.OnSeekBarC
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         ((InVenueActivity)getActivity()).setMood(seekBar.getProgress());
+
     }
 
 
     public void changeCurrentSong(String currentSong){
+
         mNowPlaying.setText(currentSong);
+    }
+
+    private void setImageByMood(int mood){
+        if(mood < 2) {
+            mImage.setImageResource(R.drawable.sad);
+        }
+
+        if(mood > 2 && mood < 5){
+            mImage.setImageResource(R.drawable.bored);
+
+        }
+
+        if(mood > 5 && mood < 7){
+            mImage.setImageResource(R.drawable.happy);
+        }
+
+
+        if(mood > 7){
+            mImage.setImageResource(R.drawable.excited);
+
+        }
+
     }
 }

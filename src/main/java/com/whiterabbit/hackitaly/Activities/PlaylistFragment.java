@@ -113,6 +113,10 @@ public class PlaylistFragment extends SherlockListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDbHelper = new DbHelper(getActivity());
+        ((InVenueActivity)getActivity()).setPlaylistFragment(this);
+
+
+
     }
 
     @Override

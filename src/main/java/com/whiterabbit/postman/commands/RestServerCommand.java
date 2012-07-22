@@ -119,13 +119,27 @@ public abstract class RestServerCommand extends ServerCommand  implements Respon
 					  "UTF-8", false));
 		
 	}
-	
+
+
+    /**
+     * To be implemented to perform test mode without server interaction
+     *
+     * @param c
+     * @return true whenever real execute must not be performed
+     */
+    abstract public boolean fakeExecute(Context c);
 	
 	/**
 	 * The real execution of the command. Performs the basic rest interaction
 	 */
 	@Override
 	public void execute(Context c) {
+
+        if(fakeExecute(c)){
+            notifyResult("Ok",  c);
+            return;
+        }
+
 		mContext = c;
 		HttpClient client= getHttpClient(c);
 		try{

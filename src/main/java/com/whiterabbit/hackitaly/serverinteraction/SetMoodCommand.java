@@ -67,4 +67,14 @@ public class SetMoodCommand extends JSONRestServerCommand {
         mUserId = i.getStringExtra(USERNAME);
         mMood = i.getIntExtra(MOOD, -1);
     }
+
+
+    @Override
+    public boolean fakeExecute(Context c){
+        if(Constants.TESTING){
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -58,4 +58,14 @@ public class LoginCommand extends JSONRestServerCommand {
     protected void fromIntent(Intent i) {
         mUserId = i.getStringExtra(USERNAME);
     }
+
+    @Override
+    public boolean fakeExecute(Context c){
+        if(Constants.TESTING){
+
+
+            return true;
+        }
+        return false;
+    }
 }

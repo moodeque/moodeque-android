@@ -13,4 +13,5 @@ public class Constants {
     }
 
     public static final String SERVER_URL = "http://10.1.8.115:6543/api/v1";
+    public static final boolean TESTING = true;
 }

@@ -3,23 +3,37 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    >
+    style="@style/moodtequeView">
+
+
+<ImageView
+    android:layout_margin="30dip"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/mood_image"
+    android:background="@drawable/sad"
+/>
 
 <SeekBar
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:id="@+id/mood_seekbar"
+    android:layout_marginLeft="20dip"
+    android:layout_marginRight="20dip"
 />
 
 <TextView
+    android:layout_marginTop="40dip"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/mood_now_playing"
+    style="@style/MoodPlaying"
 />
 
 <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mood_now_playing"
-        />
+        android:id="@+id/mood_now_playing_song"
+        style="@style/MoodPlayingSong"/>
 </LinearLayout>

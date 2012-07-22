@@ -3,12 +3,14 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    style="@style/moodtequeView"
     >
 
 <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/places_name"
+        style="@style/PlacesTitle"
         />
 
 <ListView

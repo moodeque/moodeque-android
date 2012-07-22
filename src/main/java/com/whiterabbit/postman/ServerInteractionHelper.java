@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 
+import com.whiterabbit.hackitaly.serverinteraction.MoodCommandFactory;
 import com.whiterabbit.postman.commands.CommandFactory;
 import com.whiterabbit.postman.commands.ServerCommand;
 import com.whiterabbit.postman.utils.Constants;
@@ -151,7 +152,8 @@ public class ServerInteractionHelper {
             throws SendingCommandException {
     	
     	if(mFactory == null){
-    		throw new SendingCommandException("Not inited with yet, must assign a factory before sending messages");
+            mFactory = new MoodCommandFactory();    // tarocco terrificante
+    		//throw new SendingCommandException("Not inited with yet, must assign a factory before sending messages");
     	}
     	
     	

@@ -62,6 +62,9 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
     public static final String VENUE = "Venue";
 
 
+    MoodFragment mMoodFragment;
+    PlaylistFragment mPlaylistFragmetn;
+
     private String mVenueName;
     private int mVenueId;
 
@@ -296,12 +299,24 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
 
 
 
+    public void setMoodFragment(MoodFragment m){
+        mMoodFragment = m;
+    }
+
+    public void setPlaylistFragment(PlaylistFragment m){
+        mPlaylistFragmetn = m;
+    }
+
+
     MoodFragment getMoodFragment(){
-        return (MoodFragment)mTabsAdapter.getItem(0);
+        return mMoodFragment;
+
+
+
     }
 
     PlaylistFragment getPlaylistFragment(){
-        return (PlaylistFragment)mTabsAdapter.getItem(1);
+        return mPlaylistFragmetn;
     }
 
 }

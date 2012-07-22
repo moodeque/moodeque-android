@@ -9,7 +9,7 @@ public class PreferencesStore {
 	
 	public static final String PREF_NAME = "com.whiterabbit.hackitaly";
 	public static final String USERNAME = "Count";
-    public static final String CURRENTLY_PLAYING = "Count";
+    public static final String CURRENTLY_PLAYING = "Currently";
 	
 	public static String getUsername(Context c)
 	{

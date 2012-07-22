@@ -85,4 +85,25 @@ public class GetPlaylistCommand extends JSONRestServerCommand {
     protected void fromIntent(Intent i) {
         mVenue = i.getLongExtra(VENUE, -1);
     }
+
+
+    @Override
+    public boolean fakeExecute(Context c){
+        if(Constants.TESTING){
+            mDb = new DbHelper(c);     // I know this is not the healthiest practice. On the other hand, I am short of time
+
+            mDb.open();
+            mDb.removeAllSong();
+            PreferencesStore.setCurrentlyPlaying(c, "Fava");
+
+
+            mDb.addSong(Long.valueOf(0), "Fava", "Gigi d'alessio");
+            mDb.addSong(Long.valueOf(1), "Rava1", "Autore 1");
+            mDb.addSong(Long.valueOf(2), "Rava2", "Autore 2");
+            mDb.close();
+
+            return true;
+        }
+        return false;
+    }
 }

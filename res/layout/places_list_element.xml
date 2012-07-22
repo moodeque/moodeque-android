@@ -2,17 +2,21 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
-              android:layout_height="wrap_content">
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              style="@style/PlacesElement">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/places_list_element_name"
+            style="@style/PlacesName"
             />
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/places_list_element_description"
+            style="@style/PlacesDescription"
             />
 
 </LinearLayout>
