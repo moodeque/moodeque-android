@@ -24,7 +24,7 @@ public class SetMoodCommand extends JSONRestServerCommand {
 
 
     public SetMoodCommand(String username, int mood){
-        super(Action.GET);
+        super(Action.UPDATE);
         mMood = mood;
         mUserId = username;
     }
@@ -47,7 +47,7 @@ public class SetMoodCommand extends JSONRestServerCommand {
 
     @Override
     protected String getUrl(Action a) {
-        return Constants.SERVER_URL + "/people/" + mUserId;
+        return Constants.SERVER_URL + "/people/" + mUserId + "?mood=" + mMood;
     }
 
     @Override

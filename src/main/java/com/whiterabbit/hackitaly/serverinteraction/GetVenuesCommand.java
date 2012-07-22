@@ -49,7 +49,7 @@ public class GetVenuesCommand extends JSONRestServerCommand {
 
        for (int i = 0; i < venues.length(); i++) {
             JSONObject jo = venues.getJSONObject(i);
-            Long id = jo.getLong("id");
+            Long id = jo.getLong("venueid");
             String name = jo.getString(DbHelper.PLACE_NAME_KEY);
             String description = jo.getString(DbHelper.PLACE_DESCRIPTION_KEY);
 
@@ -93,8 +93,8 @@ public class GetVenuesCommand extends JSONRestServerCommand {
             mDb.removeAllPlace();
 
             mDb.addPlace(Long.valueOf(0), "Hackitaly", "Siamo qua", Long.valueOf(0), Long.valueOf(0));
-            mDb.addPlace(Long.valueOf(0), "Pisa", "Speriamo di tornacci", Long.valueOf(0), Long.valueOf(0));
-            mDb.addPlace(Long.valueOf(0), "Empoli", "Tanta brutta gente", Long.valueOf(0), Long.valueOf(0));
+            mDb.addPlace(Long.valueOf(1), "Pisa", "Speriamo di tornacci", Long.valueOf(0), Long.valueOf(0));
+            mDb.addPlace(Long.valueOf(2), "Empoli", "Tanta brutta gente", Long.valueOf(0), Long.valueOf(0));
             mDb.close();
 
             return true;

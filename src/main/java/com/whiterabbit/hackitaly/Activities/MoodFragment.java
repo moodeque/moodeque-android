@@ -22,6 +22,7 @@ public class MoodFragment extends SherlockFragment implements SeekBar.OnSeekBarC
     int mNum;
     SeekBar mSeekbar;
     TextView mNowPlaying;
+    TextView mUpdating;
     ImageView mImage;
     int mInitialValue;
     int mFinalValue;
@@ -71,6 +72,7 @@ public class MoodFragment extends SherlockFragment implements SeekBar.OnSeekBarC
         mSeekbar.setMax(9);
         mSeekbar.setOnSeekBarChangeListener(this);
         mSeekbar.setProgress(1);
+        mUpdating = (TextView) getView().findViewById(R.id.mood_updating);
 
         ((InVenueActivity)getActivity()).setMoodFragment(this);
 
@@ -90,6 +92,15 @@ public class MoodFragment extends SherlockFragment implements SeekBar.OnSeekBarC
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         ((InVenueActivity)getActivity()).setMood(seekBar.getProgress());
+
+    }
+
+    public void updatingMood(){
+        mUpdating.setText(getActivity().getString(R.string.mood_updating));
+    }
+
+    public void unsetUpdatingMood(){
+        mUpdating.setText("");
 
     }
 

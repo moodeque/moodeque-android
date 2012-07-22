@@ -43,10 +43,11 @@ public class GetPlaylistCommand extends JSONRestServerCommand {
     public void processJSONResult(String result, Context context) throws JSONException {
         mDb = new DbHelper(context);     // I know this is not the healthiest practice. On the other hand, I am short of time
         JSONObject jsonResponse = new JSONObject(result);
-        JSONArray venues = jsonResponse.getJSONArray("venues");
+        JSONArray venues = jsonResponse.getJSONArray("songs");
 
         mDb.open();
         mDb.removeAllSong();
+        int last = venues.length() - 1;
 
        for (int i = 0; i < venues.length(); i++) {
             JSONObject jo = venues.getJSONObject(i);
@@ -56,7 +57,7 @@ public class GetPlaylistCommand extends JSONRestServerCommand {
 
             mDb.addSong(id, name, artist);
 
-            if(i == 0){
+            if(i == last){
                 PreferencesStore.setCurrentlyPlaying(context, name);
             }
         }

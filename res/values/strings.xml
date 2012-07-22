@@ -13,4 +13,5 @@
 
     <string name="mood_now_playing">Now playing</string>
     <string name="places_name">Choose your location</string>
+    <string name="mood_updating">Updating your mood..</string>
 </resources>

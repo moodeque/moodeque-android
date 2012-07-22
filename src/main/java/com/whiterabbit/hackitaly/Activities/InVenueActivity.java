@@ -233,6 +233,8 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
                 SetMoodCommand c = new SetMoodCommand(PreferencesStore.getUsername(this), mood);
             try {
                 ServerInteractionHelper.getInstance().sendCommand(this, c, SEND_MOOD);
+                getMoodFragment().updatingMood();
+
             } catch (SendingCommandException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -287,12 +289,21 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
             getPlaylistFragment().updatePlaylist();
             setSupportProgressBarIndeterminateVisibility(false);
         }
+
+        if(requestId.equals(SEND_MOOD)){
+            getMoodFragment().unsetUpdatingMood();
+        }
     }
 
     @Override
     public void onServerError(String result, String requestId) {
-        setSupportProgressBarIndeterminateVisibility(false);
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+
+        if(requestId.equals(SEND_MOOD)){
+            getMoodFragment().unsetUpdatingMood();
+        }else{
+            setSupportProgressBarIndeterminateVisibility(false);
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        }
 
     }
 
