@@ -30,6 +30,16 @@ public class MoodCommandFactory extends CommandFactory{
         }
 
 
+        if(simpleClassName.equals(CheckinCommand.class.getSimpleName())){
+            CheckinCommand c = new CheckinCommand();
+            return c;
+        }
+
+        if(simpleClassName.equals(CheckoutCommand.class.getSimpleName())){
+            CheckoutCommand c = new CheckoutCommand();
+            return c;
+        }
+
         if(simpleClassName.equals(SetMoodCommand.class.getSimpleName())){
             SetMoodCommand c = new SetMoodCommand();
             return c;

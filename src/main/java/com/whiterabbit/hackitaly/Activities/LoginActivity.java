@@ -35,6 +35,7 @@ public class LoginActivity extends SherlockActivity implements View.OnClickListe
         mGo.setOnClickListener(this);
 
         mUser = (EditText) findViewById(R.id.login_name_text);
+        mUser.setText(PreferencesStore.getUsername(this));
     }
 
 

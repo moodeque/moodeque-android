@@ -39,6 +39,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.whiterabbit.hackitaly.R;
 import com.whiterabbit.hackitaly.Utils.PreferencesStore;
+import com.whiterabbit.hackitaly.serverinteraction.CheckinCommand;
 import com.whiterabbit.hackitaly.serverinteraction.GetPlaylistCommand;
 import com.whiterabbit.hackitaly.serverinteraction.SetMoodCommand;
 import com.whiterabbit.postman.SendingCommandException;
@@ -58,7 +59,8 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
     TabsAdapter mTabsAdapter;
 
     public final String SEND_MOOD = "SendMood";
-    public final String GET_PLAYLIST = "Playlist";
+    public final String CHECKIN = "Checkin";
+    public final String GET_PLAYLIST = "History";
     public static final String VENUE = "Venue";
 
 
@@ -248,6 +250,7 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
     public void onResume(){
         super.onResume();
         ServerInteractionHelper.getInstance().registerEventListener(this, this);
+        checkin();
         requestPlaylist();
     }
 
@@ -300,7 +303,7 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
 
         if(requestId.equals(SEND_MOOD)){
             getMoodFragment().unsetUpdatingMood();
-        }else{
+        }else if (requestId.equals(GET_PLAYLIST)){
             setSupportProgressBarIndeterminateVisibility(false);
             Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
         }
@@ -328,6 +331,33 @@ public class InVenueActivity extends SherlockFragmentActivity implements ServerI
 
     PlaylistFragment getPlaylistFragment(){
         return mPlaylistFragmetn;
+    }
+
+
+    private void checkin(){
+        CheckinCommand c = new CheckinCommand(PreferencesStore.getUsername(this), mVenueId);
+        try {
+            ServerInteractionHelper.getInstance().sendCommand(this, c, CHECKIN);
+
+        } catch (SendingCommandException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    private void checkout(){
+        CheckinCommand c = new CheckinCommand(PreferencesStore.getUsername(this), mVenueId);
+        try {
+            ServerInteractionHelper.getInstance().sendCommand(this, c, CHECKIN);
+
+        } catch (SendingCommandException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        checkout();
+        super.onBackPressed();
     }
 
 }

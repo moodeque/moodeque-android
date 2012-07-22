@@ -9,7 +9,7 @@
     <string name="login_go">Go</string>
 
     <string name="invenue_mood">Mood</string>
-    <string name="invenue_playlist">Playlist</string>
+    <string name="invenue_playlist">Songs History</string>
 
     <string name="mood_now_playing">Now playing</string>
     <string name="places_name">Choose your location</string>
